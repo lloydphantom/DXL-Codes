@@ -1,0 +1,25 @@
+Module m = current
+setExclusive()
+Buffer buffer = create
+Buffer buffer2 = create
+
+Object o
+
+// Iterate over objects
+for o in m do
+{
+  int ind = 0
+  buffer = o."Object Text" // Text of req.
+  buffer2 = number(o)
+
+  // Req. check
+  if ( contains(buffer, "shall", ind) >= 0 )
+  {
+    print identifier(o)" shall be requirement.\n"
+    o."Requirement" = "Y" // have 3 value (Derived, Yes or No)
+  }
+  else if (contains(buffer2, '-', 0) < 0) // ( o."Object Heading""" != "")
+  {
+    print identifier(o)" shall be heading.\n"
+  } 
+}
