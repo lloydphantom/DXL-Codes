@@ -1,0 +1,23 @@
+Module m = current
+setExclusive()
+Buffer buffer = create
+Buffer buffer2 = create
+
+Object o
+
+// Iterate over objects
+for o in m do
+{
+  int ind = 0
+  buffer = o."Object Text" // Text of req.
+
+  // Req. check
+  if ( contains(buffer, "shall", ind) >= 0 )
+  {
+    o."Req" = "Y" // have 3 value (Derived, Yes or No)
+  }
+  else if (reqtype== heading or description){
+	
+           o."Req" = "N"
+  } 
+}
