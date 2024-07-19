@@ -27,7 +27,7 @@ for o in m do
     }                                                                   //a heading or not previously
     else{
       while(true){
-        out << number(po) << " " po."Object Text" "" <<','
+        out << number(po) << " " po."Object Text" "" <<','               //writes the exact text too but doesnt work too well
         po=parent(po)
         if(po."Requirement Type" "" == "Heading"){
           out << number(po)<< " " po."Object Heading" "" <<  "\n"
