@@ -1,0 +1,52 @@
+Module m = current
+
+setExclusive()
+Stream out = write "C:\\Users\\you\\Desktop\\parentfolder\\folder.csv" //Write the path of your csv folder 
+
+Object o
+for o in m do
+{
+  Buffer buffer = create
+  Buffer HBuffer = create
+
+  
+  buffer = o."Object Text" // Text of req.
+  HBuffer = o."Object Heading" // Text of Heading.
+  
+
+  int ind = 0
+
+  // Searches the specified words in text objects
+  if (contains(buffer, "Receive", ind) >= 0  or contains(buffer, "receive", ind)>= 0 or contains(buffer, "Received", ind)>= 0 or contains(buffer, "received", ind)>= 0 or contains(buffer, "Receive", ind)>= 0 or contains(buffer, "receive", ind)>= 0 or contains(buffer, "Receiving", ind)>= 0 or contains(buffer, "receiving", ind)>= 0)
+  {
+    Object po = parent(o)
+
+    out << "Parent Object: " << identifier(o) << ','
+    if(po."Requirement Type" "" == "Heading"){                          // Verify if the found word is under a parent Heading Object or not
+      out << number(po)<< " " po."Object Heading" "" <<  "\n"           // You have to create a attribute called "Requirement Type" and select if the object is 
+    }                                                                   //a heading or not previously
+    else{
+      while(true){
+        out << number(po) << " " po."Object Text" "" <<','
+        po=parent(po)
+        if(po."Requirement Type" "" == "Heading"){
+          out << number(po)<< " " po."Object Heading" "" <<  "\n"
+          break;
+        }
+
+      }
+    
+    }
+  }
+
+  // Searches the specified words in heading objects
+  if (contains(HBuffer, "Receive", ind) >= 0  or contains(HBuffer, "receive", ind)>= 0 or contains(HBuffer, "Received", ind)>= 0 or contains(HBuffer, "received", ind)>= 0 or contains(HBuffer, "Receive", ind)>= 0 or contains(HBuffer, "receive", ind)>= 0 or contains(HBuffer, "Receiving", ind)>= 0 or contains(HBuffer, "receiving", ind)>= 0){
+        
+        out << "Heading Object: " <<  stringOf(HBuffer) << ','
+        out << number(o) << " " stringOf(HBuffer) <<"\n"
+  }
+  delete buffer
+  delete HBuffer
+
+}
+close out
